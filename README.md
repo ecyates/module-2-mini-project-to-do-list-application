@@ -7,12 +7,12 @@ The To-Do List Application has five major features, as shown on the main menu.
 
 Menu:
 
-1 - Add a task ^p
-2 - View tasks ^p
-3 - Mark a task as complete \n
-4 - Delete a task \n
-5 - Quit \n
-
+1 - Add a task  
+2 - View tasks  
+3 - Mark a task as complete  
+4 - Delete a task  
+5 - Quit  
+  
 - At the menu, the user will be prompted to choose an option by selecting a number. 
 - If they select a number out of the range (1-5) or input a word, they will be reminded that that's not a valid input and prompted again. 
 - Every option should bring the user back to the main menu
@@ -31,10 +31,10 @@ For example:
 
 To-Do List:
 
-[ ] Take the kids to school
-[ ] Do the laundry
-[X] Walk the dog
-[X] Have breakfast
+[ ] Take the kids to school  
+[ ] Do the laundry  
+[X] Walk the dog  
+[X] Have breakfast  
 
 ## Mark a Task as Complete
 - This option will prompt the user to provide a task and change its status from 'Incomplete' to 'Complete'.
