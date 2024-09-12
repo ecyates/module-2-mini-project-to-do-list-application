@@ -6,7 +6,7 @@ def add_task(task):
         print(f"\nThe task '{task}' was added to the to-do list.") # Informs the user
     else: 
         print(f"\nThe task '{task}' already exists in the to-do list, please input a unique task.") # Informs the user if the task is not unique
-    menu() # Back to the main menu
+    back_to_menu() # Back to the main menu
 
 def view_tasks():
     '''This function displays the to-do list in a bulleted list form, 
@@ -23,7 +23,7 @@ def view_tasks():
             if t[1] == "Complete":
                 prefix = "[X]"
             print(prefix, t[0])
-    menu()  # Back to main menu   
+    back_to_menu()  # Back to main menu   
 
 def task_complete(task):
     '''This function changes the status of the task from 'Incomplete' to 'Complete' and moves the task 
@@ -35,8 +35,9 @@ def task_complete(task):
     # If the user gives a task that's not on our list, informs user
     except ValueError:
         print(f"\nOops, looks like task '{task}' is not on our to-do list. Please select (1) to add the task and then (3) to mark it complete.")
-    finally:
-        menu() # Back to main menu
+        menu()
+    else:
+        back_to_menu() # Back to main menu
 
 def delete_task(task):
     '''This function deletes the given task.'''
@@ -50,8 +51,44 @@ def delete_task(task):
     # If the user gives a task that's not on our list, informs user
     except ValueError:
         print(f"\nOops, the task '{task}' cannot be found in the to-do list. Try again!")
-    finally: 
         menu() # Back to main menu
+    else: 
+        back_to_menu() # Back to main menu
+
+def back_to_menu():
+    '''This function acts as a go-between from each action to the main menu. It allows the user to just type their next action
+    if they have them memorized or to return to the main menu if they need to see the options again.'''
+    try:
+        # The user can hit any key and then 'enter' to return to the main menu or choose one of the menu items (1-5)
+        next_move = int(input(f"\nTo return to main menu, hit any key and 'enter', or choose your next menu item: (1-5).\n\n"))
+        # If they choose 1-5, take action
+        if next_move <=5 and next_move > 0:
+            take_action(next_move)
+        # Otherwise, let's go back to the main menu
+        else: 
+            menu()
+    # If the user doesn't choose an int, go back to the main menu
+    except ValueError:
+        menu()
+
+def take_action(menu_item):
+    '''This function takes the chosen action, prompts any necessary parameters, and runs the corresponding function.'''
+    
+    # If the user selects 1, prompt what task they'd like to add and run that function.
+    if menu_item == 1:
+        add_task(input("\nWhat task would you like to add?\n\n"))
+    # If th user selects 2, run the function to view all tasks.
+    elif menu_item == 2:
+        view_tasks()
+    # If the user selects 3, prompt what task they'd like to mark complete and run that function
+    elif menu_item == 3:
+        task_complete(input("\nWhat task would you like to mark complete?\n\n"))
+    # If the user selects 4, prompt what task they'd like to delete and run that function
+    elif menu_item == 4:
+        delete_task(input("\nWhat task would you like to delete?\n\n"))
+    # If the user selects 5, thank them and exit
+    else:
+        print("\nThank you for using the To-Do List App and have a productive day!\nGood bye!\n")
 
 def menu():
     ''' This function shows the main menu options and then 
@@ -79,21 +116,7 @@ Menu:
         print("\nPlease try again and input a number between 1 and 5.")
         menu()
     else:
-        # If the user selects 1, prompt what task they'd like to add and run that function.
-        if menu_item == 1:
-            add_task(input("\nWhat task would you like to add?\n\n"))
-        # If th user selects 2, run the function to view all tasks.
-        elif menu_item == 2:
-            view_tasks()
-        # If the user selects 3, prompt what task they'd like to mark complete and run that function
-        elif menu_item == 3:
-            task_complete(input("\nWhat task would you like to mark complete?\n\n"))
-        # If the user selects 4, prompt what task they'd like to delete and run that function
-        elif menu_item == 4:
-            delete_task(input("\nWhat task would you like to delete?\n\n"))
-        # If the user selects 5, thank them and exit
-        else:
-            print("\nThank you for using the To-Do List App and have a productive day!\nGood bye!\n")
+        take_action(menu_item)
 
 # The app starts here
 to_do_list = [] # Creates the to-do list
